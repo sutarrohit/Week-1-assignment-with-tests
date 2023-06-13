@@ -8,7 +8,21 @@
 */
 
 function isAnagram(str1, str2) {
+  // conver string to lowecase and remove whitspace
+  str1 = str1.toLowerCase().replace(/\s/g, "");
+  str2 = str2.toLowerCase().replace(/\s/g, "");
 
+  const sortedString1 = str1.split("").sort().join("");
+  const sortedString2 = str2.split("").sort().join("");
+
+  if (sortedString1 === sortedString2) {
+    return true;
+  } else {
+    return false;
+  }
 }
+
+const result = isAnagram("spar", "rasp");
+console.log(result);
 
 module.exports = isAnagram;

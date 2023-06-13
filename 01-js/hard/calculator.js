@@ -17,6 +17,70 @@
   - `npm run test-calculator`
 */
 
-class Calculator {}
+class Calculator {
+  constructor() {
+    this.result = 0;
+  }
 
+  add(number) {
+    this.result += number;
+  }
+
+  subtract(number) {
+    this.result -= number;
+  }
+
+  multiply(number) {
+    this.result *= number;
+  }
+
+  divide(number) {
+    if (number == 0) {
+      throw new Error("Divide by zero");
+    }
+    this.result /= number;
+  }
+
+  clear() {
+    this.result = 0;
+  }
+
+  getResult() {
+    return this.result;
+  }
+
+  calculate(expression) {
+    // remove extra whitespaces
+    const cleanExpression = expression.replace(/\s+/g, "").trim();
+
+    // throw divided by zero error
+    if (/\b\/0\b/.test(cleanExpression)) {
+      throw new Error("Divided by zero");
+    }
+
+    // Evaluate the expression
+    try {
+      this.result = eval(cleanExpression);
+    } catch (error) {
+      throw new Error("Invalid expression");
+    }
+  }
+}
+
+const calculator = new Calculator();
+calculator.add(50);
+calculator.multiply(2);
+calculator.subtract(20);
+calculator.divide(2);
+calculator.add(7);
+console.log("answer", calculator.getResult());
+calculator.clear();
+
+try {
+  calculator.calculate(`10 +   2 *    (   6 - (4 + 1) / 2) + 7`);
+  // calculator.calculate(`10/0`);
+  console.log("Answer of the string expression ", calculator.getResult());
+} catch (error) {
+  console.log(error);
+}
 module.exports = Calculator;
